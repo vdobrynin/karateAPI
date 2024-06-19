@@ -1,0 +1,10 @@
+.DS_Store
+**/target/*
+.vscode
+.idea
+.project
+.settings
+.classpath
+.java-version
+*.iml
+*.tokens
