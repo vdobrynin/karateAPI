@@ -25,8 +25,8 @@ Feature: Tests for the home page
     When method Get
     Then status 200
     And match response.articles == '#[10]'
-    # And match response.articles == '#[9]' #error
-    And match response.articlesCount == 10
-    # And match response.articlesCount == 9   #error
-    # And match response.articlesCount == 20  #error  
-    # And match response.articlesCount == '10'  #error  
+    # And match response.articles == '#[9]' 
+    # And match response.articlesCount == 10
+    # And match response.articlesCount == 9   
+    # And match response.articlesCount == 20 
+    # And match response.articlesCount == '10' 
