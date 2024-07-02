@@ -17,7 +17,7 @@ Feature: Tests for the home page
     # And match response.tags == '#string' # will have an error (array contains strings)
     And match each response.tags == "#string" 
   @skip
-  Scenario: Get 10 articles from the page 
+  Scenario: Get 10 articles from the page  
       # Given param limit = 10
       # Given param offset = 0
     Given params { limit: 10, offset: 0 }
