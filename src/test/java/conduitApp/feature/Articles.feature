@@ -2,14 +2,16 @@
 Feature: Articles
 
   Background: Define URL
-    Given url 'https://conduit-api.bondaracademy.com/api/'
-    Given path 'users/login'        
-    And request {"user":{"email":"karate4Tests64@tests.com","password":"vd123456789"}}    
-    When method Post
-    Then status 200        
-    * def token = response.user.token
+      Given url 'https://conduit-api.bondaracademy.com/api/'
+      # Given path 'users/login'                                      //# move to CreateToken.feature
+      # And request {"user":{"email":"karate4Tests64@tests.com","password":"vd123456789"}}    
+      # When method Post
+      # Then status 200        
+      # * def token = response.user.token
+      * def tokenResponse = call read('classpath:helpers/CreateToken.feature')
+      * def token = tokenResponse.authToken
   
-    Scenario: Create a new article
+  Scenario: To create a new article
       Given header Authorization = 'Token ' + token
       Given path 'articles'
       And request {"article":{"title":"Holograms!1","description":"api testing","body":"go ga, for","tagList":[]}}
@@ -19,27 +21,29 @@ Feature: Articles
       And match response.article.title == 'Holograms!1'
 
 @debug    
-    Scenario: Create and delete article
+  Scenario: Create and delete new article
       Given header Authorization = 'Token ' + token
       Given path 'articles'
       And request {"article":{"title":"Delete Article","description":"testing today","body":"do da","tagList":[]}}
       When method Post
       Then status 201
-      # * print '1st ' + response.article.slug
+      * print 'Slug title is ' + response.article.slug
       * def articleId = response.article.slug
-    
+      
+      Given header Authorization = 'Token ' + token
       Given params { limit: 10, offset: 0 }
       Given path 'articles'
       When method Get
       Then status 200
-      # * print '2nd ' + response.articles[0].title
-      And match response.articles[0].title == 'Delete Article'
-      
+      * print 'ArticleTitle is ' + response.articles[0].title
+      And match response.articles[0].title == 'Delete Article'    
+
       Given header Authorization = 'Token ' + token
       Given path 'articles',articleId
       When method Delete
       Then status 204
 
+      Given header Authorization = 'Token ' + token
       Given params { limit: 10, offset: 0 }
       Given path 'articles'
       When method Get
