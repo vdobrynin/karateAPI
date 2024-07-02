@@ -1,4 +1,4 @@
-
+@debug 
 Feature: Articles
 
   Background: Define URL
@@ -8,7 +8,7 @@ Feature: Articles
       # When method Post
       # Then status 200        
       # * def token = response.user.token
-      * def tokenResponse = call read('classpath:helpers/CreateToken.feature')
+      * def tokenResponse = callonce read('classpath:helpers/CreateToken.feature') {"email":"karate4Tests64@tests.com","password":"vd123456789"}
       * def token = tokenResponse.authToken
   
   Scenario: To create a new article
@@ -19,8 +19,7 @@ Feature: Articles
       Then status 201
       # And match response.article.description == 'do more api testing today'
       And match response.article.title == 'Holograms!1'
-
-@debug    
+   
   Scenario: Create and delete new article
       Given header Authorization = 'Token ' + token
       Given path 'articles'
