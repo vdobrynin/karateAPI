@@ -43,7 +43,6 @@ Feature: Articles
       When method Delete
       Then status 204
 
-      # Given header Authorization = 'Token ' + token
       Given params { limit: 10, offset: 0 }
       Given path 'articles'
       When method Get
