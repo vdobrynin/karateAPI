@@ -1,18 +1,19 @@
 function fn() {
-  var env = karate.env; // get system property 'karate.env'
-  karate.log("karate.env system property was:", env);
+  var env = karate.env;               // get system property 'karate.env'
+  karate.log('karate.env system property was:', env);
   if (!env) {
-    env = "dev";
+    env = 'dev';
   }
   var config = {
-    env: env,
-    myVarName: "someValue",
+    apiUrl: 'https://conduit-api.bondaracademy.com/api/',
   };
-  if (env == "dev") {
-    // customize
-    // e.g. config.foo = 'bar';
-  } else if (env == "e2e") {
-    // customize
+  if (env == 'dev') {
+    config.userEmail = 'karate4Tests64@tests.com'
+    config.userPassword = 'vd123456789'
+  }
+  if (env == "qa") {
+    config.userEmail = 'pwtest60@test.com'
+    config.userPassword = 'vd123456'
   }
   return config;
 }

@@ -1,14 +1,14 @@
-@debug 
+
 Feature: Articles
 
   Background: Define URL
-      Given url 'https://conduit-api.bondaracademy.com/api/'
+      Given url apiUrl
       # Given path 'users/login'                                      //# move to CreateToken.feature
       # And request {"user":{"email":"karate4Tests64@tests.com","password":"vd123456789"}}    
       # When method Post
       # Then status 200        
       # * def token = response.user.token
-      * def tokenResponse = callonce read('classpath:helpers/CreateToken.feature') {"email":"karate4Tests64@tests.com","password":"vd123456789"}
+      * def tokenResponse = callonce read('classpath:helpers/CreateToken.feature')
       * def token = tokenResponse.authToken
   
   Scenario: To create a new article
@@ -19,7 +19,7 @@ Feature: Articles
       Then status 201
       # And match response.article.description == 'do more api testing today'
       And match response.article.title == 'Holograms!1'
-   
+  @debug 
   Scenario: Create and delete new article
       Given header Authorization = 'Token ' + token
       Given path 'articles'
