@@ -11,9 +11,13 @@ function fn() {
     config.userEmail = 'karate4Tests64@tests.com'
     config.userPassword = 'vd123456789'
   }
-  if (env == "qa") {
+  if (env == 'qa') {
     config.userEmail = 'pwtest60@test.com'
-    config.userPassword = 'vd123456'
+    config.userPassword = 'vd12345'
   }
+
+  var accessToken = karate.callSingle('classpath:helpers/CreateToken.feature', config).authToken
+  karate.configure('headers', { Authorization: 'Token ' + accessToken })
+
   return config;
 }
