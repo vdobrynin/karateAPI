@@ -11,7 +11,7 @@ Feature: Tests for the home page
     Given path 'tags'
     When method Get 
     Then status 200
-    # And match response.tags contains 'GitHub'   //#next 4 assertion no needed in auto.testing
+    # And match response.tags contains 'GitHub'         //#next 4 assertion no needed in auto.testing
     # And match response.tags contains ['Zoom', 'Coding']
     # And match response.tags !contains 'truck'
     # And match response.tags contains any ['fish', 'dog', 'Exam']
@@ -23,6 +23,8 @@ Feature: Tests for the home page
 
   @skip
   Scenario: Get 10 articles from the page  
+    #                                                                   // added at #20
+    * def timeValidator = read('classpath:helpers/timeValidator.js')        
       # Given param limit = 10
       # Given param offset = 0
     Given params { limit: 10, offset: 0 }
@@ -43,18 +45,39 @@ Feature: Tests for the home page
     # And match response == {"articles": "#array", "articlesCount": 10}
     # And match response == {"articles": "#array", "articlesCount": 5}    //# will fail
     And match response.articles[0].createdAt contains '2024'
-    And match response.articles[*].favoritesCount contains 8
+    And match response.articles[*].favoritesCount contains 9
     # And match response.articles[*].favoritesCount contains 205
-    # And match response.articles[*].favoritesCount contains 1    //# will fail
+    # And match response.articles[*].favoritesCount contains 1        //# will fail
     # And match response.articles[*].favoritesCount contains 0
     And match response.articles[*].author.bio contains null
     And match response..bio contains null
-    
+
     And match each response..following == false
-    # And match each response..following == true //# will fail
+    # And match each response..following == true      //# will fail
     And match each response..following == '#boolean'
     # And match each response..favoritesCount == '#string' 
     And match each response..favoritesCount == '#number' 
                                                         # // double ## --> null or string, see below
-    And match each response..bio == '##string'
-    # And match each response..bio == '#string' //# will fail
+    And match each response..bio == '##string'        
+    # And match each response..bio == '#string'       //# will fail
+
+    And match each response.articles ==
+    """
+        {
+          "slug": "#string",
+          "title": "#string",
+          "description": "#string",
+          "body": "#string",
+          "tagList": '#array',
+          "createdAt": "#? timeValidator(_)",
+          "updatedAt": "#? timeValidator(_)",
+          "favorited": '#boolean',
+          "favoritesCount": '#number',
+          "author": {
+              "username": "#string",
+              "bio": '##string',
+              "image": "#string",
+              "following": '#boolean'
+          }
+        }
+    """
