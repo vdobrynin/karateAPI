@@ -78,15 +78,14 @@ Scenario Outline: Validate Sign Up error messages
     And match response == <errorResponse>
 
     Examples: 
-        | email                | password | username              | errorResponse                                                        |           
-        | #(randomEmail)       | karate101| karateUser101         | {"errors":{"username":["has already been taken"]}}                   |
-        | karateUser1@test.com | karate101| #(randomUsername)     | {"errors":{"email":["has already been taken"]}}                      |
-        # | karateUser111        | karate101| #(randomUsername)     | {"errors":{"email":["is invalid"]}}                                  |
-        # | #(randomEmail)       | karate101| karateUser101010101012| {"errors":{"username":["is too long"]}}                              |
+        | email                | password | username              | errorResponse                                                                    |           
+        | #(randomEmail)       | karate101| karateUser101         | {"errors":{"username":["has already been taken"]}}                               |
+        | karateUser1@test.com | karate101| #(randomUsername)     | {"errors":{"email":["has already been taken"]}}                                  |
+        # | karateUser1          | karate101| #(randomUsername)     | {"errors":{"email":["is invalid"]}}                                  |
+        | karateUser111        | karate101| #(randomUsername)     | {"errors":{"email":["has already been taken"]}}                                  |
+        # | #(randomEmail)       | karate101| karateUser101010101012| {"errors":{"username":["is too long (maximum is 20 characters)"]}}   |
+        | #(randomEmail)       | karate101| karateUser101010101012| {"errors":{"username":["has already been taken"]}}                               |
         # | #(randomEmail)       | kar      | #(randomUsername)     | {"errors":{"password":["is too short (minimum is 8 characters)"]}}   |
-        |                      | karate101| #(randomUsername)     | {"errors":{"email":["can't be blank"]}}                              |
-        | #(randomEmail)       |          | #(randomUsername)     | {"errors":{"password":["can't be blank"]}}                           |
-        | #(randomEmail)       | karate101|                       | {"errors":{"username":["can't be blank"]}}                           |
-
-        #  (maximum is 20 characters)
-        # ,"is too short (minimum is 1 character)"]
+        |                      | karate101| #(randomUsername)     | {"errors":{"email":["can't be blank"]}}                                          |
+        | #(randomEmail)       |          | #(randomUsername)     | {"errors":{"password":["can't be blank"]}}                                       |
+        # | #(randomEmail)       | karate101|                       | {"errors":{"username":["can't be blank","is too short (minimum is 1 character)"]}}|
