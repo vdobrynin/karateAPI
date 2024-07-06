@@ -15,4 +15,10 @@ public class DataGenerator {
         String username = faker.name().username();
         return username;
     }
+
+    public String getRandomUsername2() {
+        Faker faker = new Faker();
+        String username = faker.name().username();
+        return username;
+    }
 }
