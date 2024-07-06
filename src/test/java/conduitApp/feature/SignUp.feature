@@ -1,5 +1,5 @@
 
-# @debug
+@debug
 Feature: Sign Up new user
 
     Background: Preconditions
@@ -57,11 +57,9 @@ Feature: Sign Up new user
             #  "updatedAt": '#? timeValidator(_)',
         # "username": #(randomUsername2)
 
-@debug
+# @debug
 @parallel=false    
 Scenario Outline: Validate Sign Up error messages
-    * def randomEmail = dataGenerator.getRandomEmail()
-    * def randomUsername = dataGenerator.getRandomUsername()  
     Given path 'users'
     And request
     """
