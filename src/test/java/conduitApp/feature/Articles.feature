@@ -27,7 +27,7 @@ Feature: Articles
       # And match response.article.description == 'do more api testing today'
       And match response.article.title == articleRequestBody.article.title
       # And match response.article.title == 'Holograms!1'
-  @debug
+
   Scenario: Create and delete new article
       #   Given header Authorization = 'Token ' + token //#16
       Given path 'articles'

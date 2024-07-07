@@ -3,10 +3,38 @@ Feature: Home Work
 
     Background: Preconditions
         * url apiUrl 
-
+@debug
     Scenario: Favorite articles
         # Step 1: Get atricles of the global feed
+        * def timeValidator = read('classpath:helpers/timeValidator.js')        
+        Given params { limit: 10, offset: 0 }
+        Given path 'articles'
+            When method Get
+            Then status 200
+
+        And match each response.articles ==
+        """
+            {
+            "slug": "#string",
+            "title": "#string",
+            "description": "#string",
+            "body": "#string",
+            "tagList": '#array',
+            "createdAt": "#? timeValidator(_)",
+            "updatedAt": "#? timeValidator(_)",
+            "favorited": '#boolean',
+            "favoritesCount": '#number',
+            "author": {
+                "username": "#string",
+                "bio": '##string',
+                "image": "#string",
+                "following": '#boolean'
+            }
+            }
+        """
         # Step 2: Get the favorites count and slug ID for the first arice, save it to variables
+
+
         # Step 3: Make POST request to increse favorites count for the first article
         # Step 4: Verify response schema
         # Step 5: Verify that favorites article incremented by 1
