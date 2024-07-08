@@ -48,15 +48,20 @@ Feature: Home Work
                     "image": "#string",
                     "following": '#boolean'
                     },
-                    "favoritedBy": "#array"
+                    "favoritedBy": "#array" 
                 }
              }    
         """
     # Step 5: Verify that favorites article incremented by 1
-        # * def response = {"favoritesCount": 1}
-        # And match response.favoritesCount == initialCount + 1
+        * def response = {"favoritesCount": 1}
+        * match response.favoritesCount == initialCount + 1
 
     # Step 6: Get all favorite articles
+        Given params {"favorited": "#(conduitUsername)" , "limit": 10, offset: 0}
+        Given path 'articles'
+        When method Get
+        Then status 200
+
     # Step 7: Verify response schema
     # Step 8: Verify that slug ID from Step 2 exist in one of the favorite articles
 
