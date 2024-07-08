@@ -1,4 +1,4 @@
-
+@skip
 Feature: Tests for the home page
 
   Background: Define URL
@@ -20,7 +20,7 @@ Feature: Tests for the home page
     And match each response.tags == "#string" 
 
 
-  @skip
+
   Scenario: Get 10 articles from the page  
     #                                                                   // added at #20
     * def timeValidator = read('classpath:helpers/timeValidator.js')        

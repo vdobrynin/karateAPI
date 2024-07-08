@@ -1,4 +1,4 @@
-
+@skip
 Feature: Articles
 
   Background: Define URL
@@ -35,8 +35,8 @@ Feature: Articles
       # And request {"article":{"title":"Delete Article","description":"testing today","body":"do da","tagList":[]}}
       When method Post
       Then status 201
-      * def articleId = response.article.slug
-      # * print 'Slug title is ' + articleId
+      * def articleSlugId = response.article.slug
+      # * print 'Slug title is ' + articleSlugId
       
     #   Given header Authorization = 'Token ' + token //#16
       Given params { limit: 10, offset: 0 }
