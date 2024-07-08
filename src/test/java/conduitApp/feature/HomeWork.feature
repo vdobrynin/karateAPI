@@ -4,20 +4,18 @@ Feature: Home Work
     Background: Preconditions
         * url apiUrl 
         * def timeValidator = read('classpath:helpers/timeValidator.js')  
-        # * def dataGenerator = Java.type('helpers.DataGenerator')
         
     Scenario: Favorite articles
     # Step 1: Get atricles of the global feed      
         Given params { limit: 10, offset: 0 }
         Given path 'articles'
-            When method Get
-            Then status 200
+        When method Get
+        Then status 200
 
     # Step 2: Get the favorites count and slug ID for the first article, save it to variables
         * def favoritesCount = response.articles[0].favoritesCount
-        # * print 'Favorites count is :' + favoritesCount
-        * def initialCount = 0
         * def articleSlugId = response.articles[0].slug
+        # * print 'Favorites count is :' + favoritesCount
         # * print 'Slug title is :' + articleSlugId
 
     # Step 3: Make POST request to increse favorites count for the first article
@@ -53,17 +51,29 @@ Feature: Home Work
              }    
         """
     # Step 5: Verify that favorites article incremented by 1
+        * def initialCount = 0
         * def response = {"favoritesCount": 1}
         * match response.favoritesCount == initialCount + 1
+        * print response.favoritesCount
 
     # Step 6: Get all favorite articles
-        Given params {"favorited": "#(conduitUsername)" , "limit": 10, offset: 0}
         Given path 'articles'
+        Given params {"favorited": "#(conduitUsername)" , "limit": 10, offset: 0}
         When method Get
         Then status 200
 
     # Step 7: Verify response schema
+        And match response ==
+        """
+            {
+                "articles": '#array',
+                "articlesCount": '#number'
+            }
+        """
+
     # Step 8: Verify that slug ID from Step 2 exist in one of the favorite articles
+
+    
 
     Scenario: Comment articles
     # Step 1: Get atricles of the global feed
