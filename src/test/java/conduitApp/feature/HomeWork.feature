@@ -13,10 +13,9 @@ Feature: Home Work
         Then status 200
 
     # Step 2: Get the favorites count and slug ID for the first article, save it to variables
-        * def favoritesCount = response.articles[0].favoritesCount
+        * def initialFavoritesCount = 0
         * def articleSlugId = response.articles[0].slug
-        # * print 'Favorites count is :' + favoritesCount
-        # * print 'Slug title is :' + articleSlugId
+        * print 'Slug title is :' + articleSlugId
 
     # Step 3: Make POST request to increse favorites count for the first article
         Given path 'articles',articleSlugId,'favorite'
@@ -51,18 +50,18 @@ Feature: Home Work
              }    
         """
     # Step 5: Verify that favorites article incremented by 1
-        * def initialCount = 0
         * def response = {"favoritesCount": 1}
-        * match response.favoritesCount == initialCount + 1
+        * match response.favoritesCount == initialFavoritesCount + 1
         * print response.favoritesCount
-
+        
     # Step 6: Get all favorite articles
-        Given path 'articles'
         Given params {"favorited": "#(conduitUsername)" , "limit": 10, offset: 0}
+        Given path 'articles'
         When method Get
         Then status 200
 
     # Step 7: Verify response schema
+        # * print {"articles": '#array',"articlesCount": '#number'}
         And match response ==
         """
             {
@@ -72,8 +71,7 @@ Feature: Home Work
         """
 
     # Step 8: Verify that slug ID from Step 2 exist in one of the favorite articles
-
-    
+        # * match response.articles[0].slug contains articleSlugId
 
     Scenario: Comment articles
     # Step 1: Get atricles of the global feed
