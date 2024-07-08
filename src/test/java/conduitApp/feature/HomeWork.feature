@@ -13,9 +13,10 @@ Feature: Home Work
         Then status 200
 
     # Step 2: Get the favorites count and slug ID for the first article, save it to variables
-        * def initialFavoritesCount = 0
         * def articleSlugId = response.articles[0].slug
+        * def favoritesCount = response.articles[0].favoritesCount
         * print 'Slug title is :' + articleSlugId
+        * print 'Favorites count is :' + favoritesCount
 
     # Step 3: Make POST request to increse favorites count for the first article
         Given path 'articles',articleSlugId,'favorite'
@@ -24,6 +25,7 @@ Feature: Home Work
         Then status 200
 
     # Step 4: Verify response schema
+        # * def favoritedByItem = favoritedByItemSchema
         And match response ==
         """
             {
@@ -45,13 +47,15 @@ Feature: Home Work
                     "image": "#string",
                     "following": '#boolean'
                     },
-                    "favoritedBy": "#array" 
+                    "favoritedBy": "#array",
+                    "favoritesCount": "#number" 
                 }
              }    
         """
     # Step 5: Verify that favorites article incremented by 1
+        * def initialCount = 0
         * def response = {"favoritesCount": 1}
-        * match response.favoritesCount == initialFavoritesCount + 1
+        And match response.favoritesCount == initialCount + 1
         * print response.favoritesCount
         
     # Step 6: Get all favorite articles
@@ -61,17 +65,17 @@ Feature: Home Work
         Then status 200
 
     # Step 7: Verify response schema
-        # * print {"articles": '#array',"articlesCount": '#number'}
+        # * def articleItem = articleItemSchema
         And match response ==
         """
             {
-                "articles": '#array',
-                "articlesCount": '#number'
+                "articles": "#array",
+                "articlesCount": "#number"
             }
         """
-
+       
     # Step 8: Verify that slug ID from Step 2 exist in one of the favorite articles
-        # * match response.articles[0].slug contains articleSlugId
+        # And match response.articles[0].slug contains articleSlugId
 
     Scenario: Comment articles
     # Step 1: Get atricles of the global feed
