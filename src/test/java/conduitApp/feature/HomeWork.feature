@@ -13,10 +13,10 @@ Feature: Home Work
         Then status 200
 
     # Step 2: Get the favorites count and slug ID for the first article, save it to variables
-        * def articleSlugId = response.articles[0].slug
         * def favoritesCount = response.articles[0].favoritesCount
-        * print 'Slug title is :' + articleSlugId
-        * print 'Favorites count is :' + favoritesCount
+        * def articleSlugId = response.articles[0].slug
+        # * print 'Slug title is :' + articleSlugId
+        # * print 'Favorites count is :' + favoritesCount
 
     # Step 3: Make POST request to increse favorites count for the first article
         Given path 'articles',articleSlugId,'favorite'
@@ -46,16 +46,36 @@ Feature: Home Work
                     "image": "#string",
                     "following": '#boolean'
                     },
-                    "favoritedBy": "#array",
-                    "favoritesCount": "#number" 
+                    "favoritedBy": '#array',
+                    "favorited": '#boolean',
+                    "favoritesCount": '#number',
                 }
-             }    
+             }   
         """
     # Step 5: Verify that favorites article incremented by 1
-        * def initialCount = 0
-        * def response = {"favoritesCount": 1}
-        And match response.favoritesCount == initialCount + 1
-        * print response.favoritesCount
+        And match response.article.favoritesCount == favoritesCount + 1
+        # * print response.article.favoritesCount
+
+        # # Get the selected article by slug to check if it is favorited
+        # Given path 'articles' + articleSlugId 
+        # When method Get
+        # Then status 200
+        # And match response.article.favorited == true
+        # And match response.article.favoritesCount == favoritesCount + 1
+        
+    #     #Click unfavorite button of the selected article
+    #     Given path 'articles' + articleSlugId + 'favorite'
+    #     When method Delete
+    #     Then status 200
+    #     And match response.article.favorited == false
+    #     And match response.article.favoritesCount == favoritesCount
+        
+    #     # Get the selected article by slug to check if it is unfavorited
+    #     Given path 'articles' + articleSlugId 
+    #     When method Get
+    #     Then status 200
+    #     And match response.article.favorited == false
+    #     And match response.article.favoritesCount == favoritesCount
         
     # Step 6: Get all favorite articles
         Given params {"favorited": "#(conduitUsername)" , "limit": 10, offset: 0}
@@ -67,15 +87,15 @@ Feature: Home Work
         And match response ==
         """
             {
-                "articles": "#array",
-                "articlesCount": "#number"
+                "articles": '#array',
+                "articlesCount": '#number'
             }
         """
        
     # Step 8: Verify that slug ID from Step 2 exist in one of the favorite articles
-        # And match response.articles[0].slug contains articleSlugId
+        # And match response.atricles[0].slug contains articleSlugId
 
-        
+
     Scenario: Comment articles
     # Step 1: Get atricles of the global feed
 
