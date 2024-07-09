@@ -25,7 +25,6 @@ Feature: Home Work
         Then status 200
 
     # Step 4: Verify response schema
-        # * def favoritedByItem = favoritedByItemSchema
         And match response ==
         """
             {
@@ -65,7 +64,6 @@ Feature: Home Work
         Then status 200
 
     # Step 7: Verify response schema
-        # * def articleItem = articleItemSchema
         And match response ==
         """
             {
@@ -77,8 +75,11 @@ Feature: Home Work
     # Step 8: Verify that slug ID from Step 2 exist in one of the favorite articles
         # And match response.articles[0].slug contains articleSlugId
 
+        
     Scenario: Comment articles
     # Step 1: Get atricles of the global feed
+
+
     # Step 2: Get the slug ID for the first arice, save it to variable
     # Step 3: Make a GET call to 'comments' end-point to get all comments
     # Step 4: Verify response schema
