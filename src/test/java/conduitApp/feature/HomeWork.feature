@@ -6,7 +6,7 @@ Feature: Home Work
         * def timeValidator = read('classpath:helpers/timeValidator.js')  
         
     Scenario: Favorite articles
-    # Step 1: Get atricles of the global feed      
+    # Step 1: Get articles of the global feed      
         Given params { limit: 10, offset: 0 }
         Given path 'articles'
         When method Get
@@ -18,7 +18,7 @@ Feature: Home Work
         # * print 'Slug title is :' + articleSlugId
         # * print 'Favorites count is :' + favoritesCount
 
-    # Step 3: Make POST request to increse favorites count for the first article
+    # Step 3: Make POST request to increase favorites count for the first article
         Given path 'articles',articleSlugId,'favorite'
         And request {}
         When method Post
@@ -70,7 +70,7 @@ Feature: Home Work
     #     And match response.article.favorited == false
     #     And match response.article.favoritesCount == favoritesCount
         
-    #     # Get the selected article by slug to check if it is unfavorited
+    #     # Get the selected article by slug to check if it is unfavored
     #     Given path 'articles' + articleSlugId 
     #     When method Get
     #     Then status 200
@@ -93,17 +93,17 @@ Feature: Home Work
         """
        
     # Step 8: Verify that slug ID from Step 2 exist in one of the favorite articles
-        # And match response.atricles[0].slug contains articleSlugId
+        # And match response.articles[*].slug contains articleSlugId
 
 
     Scenario: Comment articles
-    # Step 1: Get atricles of the global feed
+    # Step 1: Get articles of the global feed
 
 
-    # Step 2: Get the slug ID for the first arice, save it to variable
+    # Step 2: Get the slug ID for the first article, save it to variable
     # Step 3: Make a GET call to 'comments' end-point to get all comments
     # Step 4: Verify response schema
-    # Step 5: Get the count of the comments array lentgh and save to variable
+    # Step 5: Get the count of the comments array length and save to variable
         #Example
         # * def responseWithComments = [{"article": "first"}, {article: "second"}]
         # * def articlesCount = responseWithComments.length
