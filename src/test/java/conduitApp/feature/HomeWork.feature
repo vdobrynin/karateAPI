@@ -109,7 +109,9 @@ Feature: Home Work
         * def articleSlugId = response.articles[0].slug
 
     # Step 3: Make a GET call to 'comments' end-point to get all comments
-        
+        Given path 'articles',articleSlugId,'comments'
+        When method Get
+        Then status 200
 
     # Step 4: Verify response schema
     # Step 5: Get the count of the comments array length and save to variable
