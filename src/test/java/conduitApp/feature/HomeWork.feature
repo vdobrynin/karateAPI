@@ -114,6 +114,13 @@ Feature: Home Work
         Then status 200
 
     # Step 4: Verify response schema
+        And match response ==
+        """
+            {
+                "comments": []
+            }
+        """
+
     # Step 5: Get the count of the comments array length and save to variable
         #Example
         # * def responseWithComments = [{"article": "first"}, {article: "second"}]
