@@ -5,6 +5,7 @@ Feature: Home Work
     Background: Preconditions
         * url apiUrl 
         * def timeValidator = read('classpath:helpers/timeValidator.js')  
+        * def dataGenerator = Java.type('helpers.DataGenerator')
         
 # @debug        
     Scenario: Favorite articles
@@ -117,17 +118,55 @@ Feature: Home Work
         And match response ==
         """
             {
-                "comments": []
+                "comments": '#array'
             }
         """
 
     # Step 5: Get the count of the comments array length and save to variable
-        #Example
-        # * def responseWithComments = [{"article": "first"}, {article: "second"}]
-        # * def articlesCount = responseWithComments.length
+        * def articlesCommentsCount = response.comments.length
+        # * print articlesCommentsCount
+
     # Step 6: Make a POST request to publish a new comment
+        * def commentBody = dataGenerator.getRandomArticleValues().body
+        Given path 'articles',articleSlugId,'comments'
+        And request 
+        """
+            {
+                "comment": { 
+                    "body": '#(commentBody)'
+                    }
+            }
+        """
+        When method Post
+        Then status 200
+
     # Step 7: Verify response schema that should contain posted comment text
+        And match response ==
+        """ 
+            {
+                "comment": {
+                    "id": '#number',
+                    "createdAt": "#? timeValidator(_)",
+                    "updatedAt": "#? timeValidator(_)",
+                    "body": '#string',
+                    "author": {
+                        "username": '#string',
+                        "bio": '#string',
+                        "image": '#string',
+                        "following": false
+                    }
+                }
+            }
+        """
+        And def commentId = response.comment.id
+        * print commentId
+
     # Step 8: Get the list of all comments for this article one more time
+        Given path 'articles',articleSlugId,'comments'
+        When method Get
+        Then status 200
+
     # Step 9: Verify number of comments increased by 1 (similar like we did with favorite counts)
+
     # Step 10: Make a DELETE request to delete comment
     # Step 11: Get all comments again and verify number of comments decreased by 1
