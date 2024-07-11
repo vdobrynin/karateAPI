@@ -7,7 +7,7 @@ Feature: Home Work
         * def timeValidator = read('classpath:helpers/timeValidator.js')  
         * def dataGenerator = Java.type('helpers.DataGenerator')
         
-# @debug        
+@debug        
     Scenario: Favorite articles
     # Step 1: Get articles of the global feed      
         Given params { limit: 10, offset: 0 }
@@ -18,8 +18,8 @@ Feature: Home Work
     # Step 2: Get the favorites count and slug ID for the first article, save it to variables
         * def favoritesCount = response.articles[0].favoritesCount
         * def articleSlugId = response.articles[0].slug
-        # * print 'Slug title is :' + articleSlugId
-        # * print 'Favorites count is :' + favoritesCount
+        * print 'Slug title is :' + articleSlugId
+        * print 'Favorites count is :' + favoritesCount
 
     # Step 3: Make POST request to increase favorites count for the first article
         Given path 'articles',articleSlugId,'favorite'
@@ -57,28 +57,29 @@ Feature: Home Work
         """
     # Step 5: Verify that favorites article incremented by 1
         And match response.article.favoritesCount == favoritesCount + 1
-        # * print response.article.favoritesCount
-
+        * print response.article.favoritesCount
+        * print favoritesCount + 1
+       
         # Get the selected article by slug to check if it is favorited
-        # Given path 'articles' + articleSlugId 
-        # When method Get
-        # Then status 200
-        # And match response.article.favorited == true
-        # And match response.article.favoritesCount == favoritesCount + 1
+        Given path 'articles',articleSlugId 
+        When method Get
+        Then status 200
+        And match response.article.favorited == true
+        And match response.article.favoritesCount == favoritesCount + 1
         
-        # #Click unfavorite button of the selected article
-        # Given path 'articles' + articleSlugId + 'favorite'
-        # When method Delete
-        # Then status 200
-        # And match response.article.favorited == false
-        # And match response.article.favoritesCount == favoritesCount
+        # #Click to unfavorite button of the selected article
+        Given path 'articles',articleSlugId,'favorite'
+        When method Delete
+        Then status 200
+        And match response.article.favorited == false
+        And match response.article.favoritesCount == favoritesCount
         
-        # # Get the selected article by slug to check if it is unfavored
-        # Given path 'articles' + articleSlugId 
-        # When method Get
-        # Then status 200
-        # And match response.article.favorited == false
-        # And match response.article.favoritesCount == favoritesCount
+        # Get the selected article by slug to check if it is unfavored
+        Given path 'articles',articleSlugId 
+        When method Get
+        Then status 200
+        And match response.article.favorited == false
+        And match response.article.favoritesCount == favoritesCount
         
     # Step 6: Get all favorite articles
         Given params {"favorited": "#(conduitUsername)" , "limit": 10, offset: 0}
@@ -96,9 +97,14 @@ Feature: Home Work
         """
        
     # Step 8: Verify that slug ID from Step 2 exist in one of the favorite articles
-        # And match response.articles[*].slug contains articleSlugId
+        # And match response.articles[*].favorite.slug contains articleSlugId
+        # And match response.articles[*].favorited.slug contains articleSlugId
+        # And match response.articles[*].favoritedBy.slug contains articleSlugId
+        # And match response.articles[*].favorites.slug contains articleSlugId
+        # And match response.articles[*].favoritesCount.slug contains articleSlugId
+     
 
-@debug
+# @debug
     Scenario: Comment articles
     # Step 1: Get articles of the global feed
         Given params { limit: 10, offset: 0 }
