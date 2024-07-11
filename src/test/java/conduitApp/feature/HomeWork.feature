@@ -124,7 +124,7 @@ Feature: Home Work
 
     # Step 5: Get the count of the comments array length and save to variable
         * def initialCommentsCount = response.comments.length
-        * print "initialCommentsCount: " + initialCommentsCount
+        # * print "initialCommentsCount: " + initialCommentsCount
 
     # Step 6: Make a POST request to publish a new comment
         * def postNewComment = dataGenerator.getRandomArticleValues().body
@@ -141,8 +141,6 @@ Feature: Home Work
         Then status 200
 
     # Step 7: Verify response schema that should contain posted comment text
-        * def commentId = response.comment.id
-        * print "commentId: " + commentId
         And match response ==
         """ 
             {
@@ -160,7 +158,9 @@ Feature: Home Work
                 }
             }
         """
-       
+        * def newCommentId = response.comment.id
+        * print "newCommentId: " + newCommentId
+
     # Step 8: Get the list of all comments for this article one more time
         Given path 'articles',articleSlugId,'comments'
         When method Get
@@ -169,6 +169,16 @@ Feature: Home Work
     # # Step 9: Verify number of comments increased by 1 (similar like we did with favorite counts)   
         * def currentCommentsCount = response.comments.length
         And match currentCommentsCount == initialCommentsCount + 1
+        # * print "initialCommentsCount: " + (initialCommentsCount)
+        # * print "currentCommentsCount: " + (currentCommentsCount)
+        # * print "initialCommentsCount: " + (initialCommentsCount + 1)
         
     # Step 10: Make a DELETE request to delete comment
+        Given path 'articles',articleSlugId,'comments',newCommentId
+        When method Delete
+        Then status 200
+
     # Step 11: Get all comments again and verify number of comments decreased by 1
+        And match initialCommentsCount == currentCommentsCount - 1
+        # * print "currentCommentsCount: " + (currentCommentsCount)
+        # * print "currentCommentsCount: " + (currentCommentsCount - 1)
