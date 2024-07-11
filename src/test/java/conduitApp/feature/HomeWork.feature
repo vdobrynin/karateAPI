@@ -123,17 +123,17 @@ Feature: Home Work
         """
 
     # Step 5: Get the count of the comments array length and save to variable
-        * def articlesCommentsCount = response.comments.length
-        # * print articlesCommentsCount
+        * def initialCommentsCount = response.comments.length
+        * print "initialCommentsCount: " + initialCommentsCount
 
     # Step 6: Make a POST request to publish a new comment
-        * def commentBody = dataGenerator.getRandomArticleValues().body
+        * def postNewComment = dataGenerator.getRandomArticleValues().body
         Given path 'articles',articleSlugId,'comments'
         And request 
         """
             {
                 "comment": { 
-                    "body": '#(commentBody)'
+                    "body": '#(postNewComment)'
                     }
             }
         """
@@ -141,6 +141,8 @@ Feature: Home Work
         Then status 200
 
     # Step 7: Verify response schema that should contain posted comment text
+        * def commentId = response.comment.id
+        * print "commentId: " + commentId
         And match response ==
         """ 
             {
@@ -158,15 +160,15 @@ Feature: Home Work
                 }
             }
         """
-        And def commentId = response.comment.id
-        * print commentId
-
+       
     # Step 8: Get the list of all comments for this article one more time
         Given path 'articles',articleSlugId,'comments'
         When method Get
         Then status 200
 
-    # Step 9: Verify number of comments increased by 1 (similar like we did with favorite counts)
-
+    # # Step 9: Verify number of comments increased by 1 (similar like we did with favorite counts)   
+        * def currentCommentsCount = response.comments.length
+        And match currentCommentsCount == initialCommentsCount + 1
+        
     # Step 10: Make a DELETE request to delete comment
     # Step 11: Get all comments again and verify number of comments decreased by 1
