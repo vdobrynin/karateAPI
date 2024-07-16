@@ -6,7 +6,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import net.masterthought.cucumber.*;
+import net.masterthought.cucumber.Configuration;
+import net.masterthought.cucumber.ReportBuilder;
 import org.junit.jupiter.api.Test;
 import org.apache.commons.io.FileUtils;
 
@@ -17,12 +18,11 @@ class ConduitTest {
     @Test
     void testParallel() {
         Results results = Runner.path("classpath:conduitApp")
-                .outputCucumberJson(true) // // #28
+                .outputCucumberJson(true)
                 .parallel(5);
-        generateReport(results.getReportDir()); // // #28
-        assertTrue(results.getFailCount() == 0, results.getErrorMessages()); // // #28
-        // assertEquals(0, results.getFailCount(), results.getErrorMessages()); // //
-        // #28
+        generateReport(results.getReportDir());
+        assertTrue(results.getFailCount() == 0, results.getErrorMessages());
+        // assertEquals(0, results.getFailCount(), results.getErrorMessages());
     }
 
     public static void generateReport(String karateOutputPath) {
