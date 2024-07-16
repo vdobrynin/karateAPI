@@ -1,4 +1,4 @@
-
+@parallel=false
 Feature: Sign Up new user
 
     Background: Preconditions

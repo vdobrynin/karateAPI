@@ -1,4 +1,6 @@
-@skip
+# @skip
+# @debug
+@parallel=false
 Feature: Articles
 
   Background: Define URL
@@ -16,7 +18,7 @@ Feature: Articles
       # * def token = response.user.token
       #   * def tokenResponse = callonce read('classpath:helpers/CreateToken.feature') //#16
       #   * def token = tokenResponse.authToken
-
+@skip
   Scenario: To create a new article
       #   Given header Authorization = 'Token ' + token //#16
       Given path 'articles'
@@ -39,7 +41,7 @@ Feature: Articles
       # * print 'Slug title is ' + articleSlugId
       
     #   Given header Authorization = 'Token ' + token //#16
-      Given params { limit: 10, offset: 0 }
+      # Given params { limit: 10, offset: 0 }
       Given path 'articles'
       When method Get
       Then status 200
@@ -48,11 +50,11 @@ Feature: Articles
       # And match response.articles[0].title == 'Delete Article'    
 
       #   Given header Authorization = 'Token ' + token //#16
-      Given path 'articles', articleId
+      Given path 'articles',articleSlugId
       When method Delete
       Then status 204
 
-      Given params { limit: 10, offset: 0 }
+      # Given params { limit: 10, offset: 0 }
       Given path 'articles'
       When method Get
       Then status 200

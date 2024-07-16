@@ -1,5 +1,4 @@
-
-@debug
+# @debug
 Feature: Home Work
 
     Background: Preconditions
@@ -7,7 +6,7 @@ Feature: Home Work
         * def timeValidator = read('classpath:helpers/timeValidator.js')  
         * def dataGenerator = Java.type('helpers.DataGenerator')
         
-@debug        
+# @debug        
     Scenario: Favorite articles
     # Step 1: Get articles of the global feed      
         Given params { limit: 10, offset: 0 }

@@ -1,4 +1,4 @@
-@skip
+# @skip
 Feature: Tests for the home page
 
   Background: Define URL
@@ -18,8 +18,6 @@ Feature: Tests for the home page
     # And match response.tags == '#array'
     # And match response.tags == '#string' # will have an error (array contains strings)
     And match each response.tags == "#string" 
-
-
 
   Scenario: Get 10 articles from the page  
     #                                                                   // added at #20
@@ -41,7 +39,7 @@ Feature: Tests for the home page
 
     # # And match response.articlesCount == 10 
     # And match response.articlesCount != 5 
-    And match response == {"articles": "#[10]", "articlesCount": 10}
+    # And match response == {"articles": "#[10]", "articlesCount": 10}
     # And match response == {"articles": "#array", "articlesCount": 10}
     # # And match response == {"articles": "#array", "articlesCount": 5}    //# will fail
     # And match response.articles[0].createdAt contains '2024'

@@ -1,5 +1,5 @@
 
-@debug
+# @debug
 Feature: Hooks
 
     Background:hooks
