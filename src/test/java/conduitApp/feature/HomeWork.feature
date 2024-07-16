@@ -1,5 +1,5 @@
 
-# @debug
+@debug
 Feature: Home Work
 
     Background: Preconditions
@@ -97,8 +97,9 @@ Feature: Home Work
         """
        
     # Step 8: Verify that slug ID from Step 2 exist in one of the favorite articles
+        # And match response.article[*].favorited contains articleSlugId
         # And match response.articles[*].favorite.slug contains articleSlugId
-        # And match response.articles[*].favorited.slug contains articleSlugId
+        # And match response.articles[*].slug contains articleSlugId
         # And match response.articles[*].favoritedBy.slug contains articleSlugId
         # And match response.articles[*].favorites.slug contains articleSlugId
         # And match response.articles[*].favoritesCount.slug contains articleSlugId
