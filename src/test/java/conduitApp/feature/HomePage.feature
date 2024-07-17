@@ -110,7 +110,7 @@ Feature: Tests for the home page
     When method Get
     Then status 200  
 
-@debug
+# @debug
   Scenario: Sleep call   
     * def sleep = function(pause){ java.lang.Thread.sleep(pause) }
 
@@ -120,4 +120,21 @@ Feature: Tests for the home page
 
     * eval sleep(5000)
 
-    Then status 200      
+    Then status 200     
+
+# @debug    
+  Scenario: Number to string
+    # * match 10 == '10'
+    * def foo = 10
+    * def json = { 'bar': #(foo+'')}
+    * match json == { 'bar': '10'}
+
+@debug    
+  Scenario: String to number
+    * def foo = '10'
+    * def json = { 'bar': #(parseInt(foo))}
+    * def json1 = { 'bar': #(~~parseInt(foo))}
+    * def json2 = { 'bar': #(foo*1)}
+    * match json == { 'bar': 10}
+    * match json1 == { 'bar': 10}
+    * match json2 == { 'bar': 10}
