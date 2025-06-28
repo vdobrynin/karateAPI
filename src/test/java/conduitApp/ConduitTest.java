@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
 class ConduitTest {
-
     @Test
     void testParallel() {
         Results results = Runner.path("classpath:conduitApp")
