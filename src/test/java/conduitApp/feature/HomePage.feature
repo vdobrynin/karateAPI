@@ -1,8 +1,11 @@
-@parallel=false
+    # @parallel=false
+    @debug
 Feature: Tests for the home page
     Background: Define URL
-    Given url 'https://conduit-api.bondaracademy.com/api/'   
+        Given url 'https://conduit-api.bondaracademy.com/api/'   
     # Given url apiUrl
+
+    # @debug    
     Scenario: Get all tags
         Given path 'tags'
         When method Get 
@@ -13,7 +16,8 @@ Feature: Tests for the home page
         And match response.tags == '#array'
         # And match response.tags == '#string' //# reserve words (array 'contains' 'strings') error
         And match each response.tags == "#string" 
-    
+
+    # @debug @smoke
     Scenario: Get 10 articles from the page                                                                 
     # * def timeValidator = read('classpath:helpers/timeValidator.js')      // added at #20
         Given params { limit: 10, offset: 0 }

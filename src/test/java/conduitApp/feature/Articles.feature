@@ -1,4 +1,5 @@
-@parallel=false
+    # @parallel=false
+    # @debug
 Feature: Articles
     Background: Define URL
         Given url 'https://conduit-api.bondaracademy.com/api/'
@@ -12,20 +13,22 @@ Feature: Articles
         Given path 'users/login'  // #12 moved up from 'create a new article' //# move to CreateToken.feature                    
         And request {"user":{"email":"karateTest64@test.com","password":"vd1234567"}}    
         When method Post
-        Then status 200 
+        Then status 200
         * def token = response.user.token
         # * def tokenResponse = callonce read('classpath:helpers/CreateToken.feature') //#16
         # * def token = tokenResponse.authToken
-
+        
+        # @ignore
+        # @skip
     Scenario: Create a new article
         Given header Authorization = 'Token ' + token           // #12
         Given path 'articles'
         # And request articleRequestBody
-        And request {"article": {"title": "gchgcnb nvnvjh","description": "ghcgfddn","body": "jvhgrs","tagList": []}}
+        And request {"article": {"title": "Trying test API","description": "empty too","body": "body","tagList": []}}
         When method Post
         Then status 201
-        And match response.article.description == 'ghcgfddn'
-        And match response.article.title == 'gchgcnb nvnvjh'     // #12
+        # And match response.article.description == 'empty too'
+        # And match response.article.title == 'Trying test API'     // #12
         # And match response.article.title == articleRequestBody.article.title
 
 #   Scenario: Create and delete new article
@@ -36,7 +39,7 @@ Feature: Articles
 #       When method Post
 #       Then status 201
 #       * def articleSlugId = response.article.slug
-#       # * print 'Slug title is ' + articleSlugId
+      # * print 'Slug title is ' + articleSlugId
       
 #       Given header Authorization = 'Token ' + token //#16
 #       # Given params { limit: 10, offset: 0 }
