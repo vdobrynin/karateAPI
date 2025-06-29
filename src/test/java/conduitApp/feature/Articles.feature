@@ -10,16 +10,16 @@ Feature: Articles
     #   * set articleRequestBody.article.description = dataGenerator.getRandomArticleValues().description
     #   * set articleRequestBody.article.body = dataGenerator.getRandomArticleValues().body
 
-        Given path 'users/login'  // #12 moved up from 'create a new article' //# move to CreateToken.feature                    
-        And request {"user":{"email":"karateTest64@test.com","password":"vd1234567"}}    
-        When method Post
-        Then status 200
-        * def token = response.user.token
-        # * def tokenResponse = callonce read('classpath:helpers/CreateToken.feature') //#16
-        # * def token = tokenResponse.authToken
+        # Given path 'users/login'   // at #15.1 move next 5 lines to CreateToken.feature                    
+        # And request {"user":{"email":"karateTest64@test.com","password":"vd1234567"}}    
+        # When method Post
+        # Then status 200
+        # * def token = response.user.token      
+        * def tokenResponse = call read('classpath:helpers/CreateToken.feature') // #15.2 or use 'callonce'
+        * def token = tokenResponse.authToken       // #15.2
 
         @ignore
-    Scenario: Create a new article                                       // #14 delete article put on @ignore
+    Scenario: Create a new article                                       // at #14 delete article put on @ignore
         Given header Authorization = 'Token ' + token           // #12
         Given path 'articles'
         # And request articleRequestBody
