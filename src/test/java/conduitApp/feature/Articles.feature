@@ -17,47 +17,48 @@ Feature: Articles
         * def token = response.user.token
         # * def tokenResponse = callonce read('classpath:helpers/CreateToken.feature') //#16
         # * def token = tokenResponse.authToken
-        
-        # @ignore
-        # @skip
-    Scenario: Create a new article
+
+        @ignore
+    Scenario: Create a new article                                       // #14 delete article put on @ignore
         Given header Authorization = 'Token ' + token           // #12
         Given path 'articles'
         # And request articleRequestBody
-        And request {"article": {"title": "Trying test API","description": "empty too","body": "body","tagList": []}}
+        And request {"article": {"title": "Trying testing API","description": "Very new to me","body": "empty body","tagList": []}}
         When method Post
         Then status 201
-        # And match response.article.description == 'empty too'
-        # And match response.article.title == 'Trying test API'     // #12
+        And match response.article.description == 'Very new to me'
+        And match response.article.title == 'Trying testing API'     // #12
         # And match response.article.title == articleRequestBody.article.title
-
-#   Scenario: Create and delete new article
-#       Given header Authorization = 'Token ' + token       // #16
-#       Given path 'articles'
-#       And request articleRequestBody
-#       # And request {"article":{"title":"Delete Article","description":"testing today","body":"do da","tagList":[]}}
-#       When method Post
-#       Then status 201
-#       * def articleSlugId = response.article.slug
-      # * print 'Slug title is ' + articleSlugId
+    @debug
+  Scenario: Create and delete new article                           // #14
+      Given header Authorization = 'Token ' + token       
+      Given path 'articles'
+    #   And request articleRequestBody
+      And request {"article":{"title":"Delete Article","description":"Very new to me","body":"empty body","tagList":[]}}
+      When method Post
+      Then status 201
+      * def articleSlugId = response.article.slug
+      * print 'Slug title is: ' + articleSlugId
       
-#       Given header Authorization = 'Token ' + token //#16
-#       # Given params { limit: 10, offset: 0 }
-#       Given path 'articles'
-#       When method Get
-#       Then status 200
-#       * print 'ArticleTitle is ' + response.articles[0].title
-#       And match response.articles[0].title == articleRequestBody.article.title    
-#       # And match response.articles[0].title == 'Delete Article'    
+      Given header Authorization = 'Token ' + token               // #14
+      # Given params { limit: 10, offset: 0 }
+      Given path 'articles'
+      When method Get
+      Then status 200
+      * print 'ArticleTitle is: ' + response.articles[0].title
+      And match response.articles[0].title == 'Delete Article' 
+    #   And match response.articles[0].title == articleRequestBody.article.title    
+         
 
-#       Given header Authorization = 'Token ' + token //#16
-#       Given path 'articles',articleSlugId
-#       When method Delete
-#       Then status 204
+      Given header Authorization = 'Token ' + token           // #14
+      Given path 'articles',articleSlugId
+      When method Delete
+      Then status 204
 
-#       # Given params { limit: 10, offset: 0 }
-#       Given path 'articles'
-#       When method Get
-#       Then status 200
-#       And match response.articles[0].title != articleRequestBody.article.title
-#       And match response.articles[0].title != 'Delete Article'
+    #   Given params { limit: 10, offset: 0 }
+      Given path 'articles'
+      When method Get
+      Then status 200
+      And match response.articles[0].title != 'Delete Article'
+    #   And match response.articles[0].title != articleRequestBody.article.title
+      

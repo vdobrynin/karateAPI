@@ -15,21 +15,21 @@ import org.apache.commons.io.FileUtils;
 
 class ConduitTest {
 
-    @Karate.Test
-    Karate testAll() {
-        return Karate.run().relativeTo(getClass());
-    }
-
-    // @Test
-    // void testParallel() {
-    //     Results results = Runner.path("classpath:conduitApp")
-    //     // Results results = Runner.path("classpath:conduitApp/feature")
-    //             // .outputCucumberJson(true)
-    //             .parallel(5);
-    //     assertEquals(0, results.getFailCount(), results.getErrorMessages());
-    //     // generateReport(results.getReportDir());
-    //     // assertTrue(results.getFailCount() == 0, results.getErrorMessages());
+    // @Karate.Test
+    // Karate testAll() {
+    //     return Karate.run().relativeTo(getClass());
     // }
+
+    @Test
+    void testParallel() {
+        Results results = Runner.path("classpath:conduitApp")
+        // Results results = Runner.path("classpath:conduitApp/feature")
+                // .outputCucumberJson(true)
+                .parallel(5);
+        assertEquals(0, results.getFailCount(), results.getErrorMessages());
+        // generateReport(results.getReportDir());
+        // assertTrue(results.getFailCount() == 0, results.getErrorMessages());
+    }
 
     // public static void generateReport(String karateOutputPath) {
     // Collection<File> jsonFiles = FileUtils.listFiles(new File(karateOutputPath),

@@ -1,5 +1,5 @@
     # @parallel=false
-    @debug
+    # @debug
 Feature: Tests for the home page
     Background: Define URL
         Given url 'https://conduit-api.bondaracademy.com/api/'   
