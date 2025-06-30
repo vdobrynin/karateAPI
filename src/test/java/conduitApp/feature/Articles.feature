@@ -2,7 +2,7 @@
     # @debug
 Feature: Articles
     Background: Define URL
-        Given url 'https://conduit-api.bondaracademy.com/api/'
+      Given url 'https://conduit-api.bondaracademy.com/api/'
     #   * url apiUrl
     #   * def articleRequestBody = read('classpath:conduitApp/json/newArticleRequest.json')
     #   * def dataGenerator = Java.type('helpers.DataGenerator')
@@ -14,26 +14,25 @@ Feature: Articles
         # And request {"user":{"email":"karateTest64@test.com","password":"vd1234567"}}    
         # When method Post
         # Then status 200
-        # * def token = response.user.token      
-        * def tokenResponse = call read('classpath:helpers/CreateToken.feature') // #15.2 or use 'callonce'
-        * def token = tokenResponse.authToken       // #15.2
-
-        @ignore
+        # * def token = response.user.token                                           // #15.2 line bellow
+      * def tokenResponse = call read('classpath:helpers/CreateToken.feature') 
+      * def token = tokenResponse.authToken       // #15.2
+      
+      @ignore
     Scenario: Create a new article                                       // at #14 delete article put on @ignore
-        Given header Authorization = 'Token ' + token           // #12
-        Given path 'articles'
-        # And request articleRequestBody
-        And request {"article": {"title": "Trying testing API","description": "Very new to me","body": "empty body","tagList": []}}
-        When method Post
-        Then status 201
-        And match response.article.description == 'Very new to me'
-        And match response.article.title == 'Trying testing API'     // #12
-        # And match response.article.title == articleRequestBody.article.title
+      Given header Authorization = 'Token ' + token           // #12
+      Given path 'articles'
+      # And request articleRequestBody
+      And request {"article": {"title": "Trying testing API","description": "Very new to me","body": "empty body","tagList": []}}
+      When method Post
+      Then status 201        And match response.article.description == 'Very new to me'
+      And match response.article.title == 'Trying testing API'     // #12
+      # And match response.article.title == articleRequestBody.article.title
     @debug
   Scenario: Create and delete new article                           // #14
       Given header Authorization = 'Token ' + token       
       Given path 'articles'
-    #   And request articleRequestBody
+      # And request articleRequestBody
       And request {"article":{"title":"Delete Article","description":"Very new to me","body":"empty body","tagList":[]}}
       When method Post
       Then status 201
@@ -45,7 +44,7 @@ Feature: Articles
       Given path 'articles'
       When method Get
       Then status 200
-      * print 'ArticleTitle is: ' + response.articles[0].title
+      * print 'Article Title is: ' + response.articles[0].title
       And match response.articles[0].title == 'Delete Article' 
     #   And match response.articles[0].title == articleRequestBody.article.title    
          
