@@ -14,11 +14,11 @@ Feature: Articles
         # And request {"user":{"email":"karateTest64@test.com","password":"vd1234567"}}    
         # When method Post
         # Then status 200
-        # * def token = response.user.token                                           // #15.2 line bellow
-      * def tokenResponse = call read('classpath:helpers/CreateToken.feature') 
+        # * def token = response.user.token                              // #15.2 line bellow
+      * def tokenResponse = callonce read('classpath:helpers/CreateToken.feature') {"email":"karateTest64@test.com","password":"vd1234567"}
       * def token = tokenResponse.authToken       // #15.2
       
-      @ignore
+      # @ignore
     Scenario: Create a new article                                       // at #14 delete article put on @ignore
       Given header Authorization = 'Token ' + token           // #12
       Given path 'articles'
