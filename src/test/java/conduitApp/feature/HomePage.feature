@@ -1,5 +1,5 @@
 # @parallel=false
-# @debug
+@debug
 Feature: Tests for the home page
     Background: Define URL
         Given url apiUrl
@@ -12,7 +12,13 @@ Feature: Tests for the home page
         Then status 200
         And match response.tags contains 'GitHub'        
         And match response.tags !contains 'truck'
-        And match response.tags contains any ['qa career', 'YouTube', 'Value-Focused']      
+        And match response.tags contains any ['Blog', 'Git', "Value-Focused"]      // #18 all 3 present                                                         
+        And match response.tags contains any ['fish', 'GitHub', 'Dog', 'Enroll']  // #18 any values below (have only one)  
+        And match response.tags contains any ['Dog', 'fish', 'Bondar Academy']                                                                     
+        # And match response.tags contains any ['fish', 'Dog']                            // #18 will fail
+        And match response.tags !contains any ['fish', 'Dog', 'Value-Focused', 'Enroll']    //  #18 not contain any
+        And match response.tags contains only ["Test","Git","Zoom","YouTube","Blog","Bondar Academy","Enroll","Exam","Community","GitHub"]      
+        # And match response.tags contains only ["Test","Git","Zoom","YouTube","Bondar Academy","Enroll","Exam","Community","GitHub"]                
         And match response.tags == '#array'
         # And match response.tags == '#string' //# reserve words (array 'contains' 'strings') error
         And match each response.tags == "#string" 
@@ -26,20 +32,22 @@ Feature: Tests for the home page
         Then status 200
         And match response.articles == '#[10]'
         # And match response.articles == '#[9]'     // will fail
-        And match response.articlesCount == 10
+        And match response.articlesCount == 11                      // #18 *** probably teacher change from 10 to 11
         # And match response.articlesCount == 9     // will fail
         # And match response.articlesCount == 25    // will fail
         # And match response.articlesCount == '10'  // will fail
+        And match response.articlesCount != 50 
+        # And match response.articlesCount == 50      // will fail
 
         And match response.articlesCount != 5 
-        And match response == {"articles": "#[10]", "articlesCount": 10}
-        And match response == {"articles": "#array", "articlesCount": 10}
+        And match response == {"articles": "#[10]", "articlesCount": 11}    // #18 *** probably teacher change from 10 to 11
+        And match response == {"articles": "#array", "articlesCount": 11}   // #18 *** probably teacher change from 10 to 11
         # And match response == {"articles": "#array", "articlesCount": 5}  // will fail
-        # And match response.articles[0].createdAt contains '2025'          // will fail
-        # And match response.articles[*].favoritesCount contains 9          // will fail
-        # And match response.articles[*].favoritesCount contains 205        // will fail
-        # And match response.articles[*].favoritesCount contains 1          // will fail
-        # And match response.articles[*].favoritesCount contains 0          // will fail
+        # And match response == {"articles": "#array", "articlesCount": 9}  // will fail
+        And match response.articles[0].createdAt contains '2025'       
+        # And match response.articles[0].createdAt contains '2024'          // will fail
+        And match response.articles[*].favoritesCount contains 689          
+        And match response.articles[*].favoritesCount contains 61         
         And match response.articles[*].author.bio contains null
         And match response..bio contains null
 
