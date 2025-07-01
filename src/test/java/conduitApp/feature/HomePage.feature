@@ -19,9 +19,9 @@ Feature: Tests for the home page
         And match response.tags !contains any ['fish', 'Dog', 'Value-Focused', 'Enroll']    //  #18 not contain any
         And match response.tags contains only ["Test","Git","Zoom","YouTube","Blog","Bondar Academy","Enroll","Exam","Community","GitHub"]      
         # And match response.tags contains only ["Test","Git","Zoom","YouTube","Bondar Academy","Enroll","Exam","Community","GitHub"]                
-        And match response.tags == '#array'
+        And match response.tags == '#array'                                 // #19 *#1* priority in assertions
         # And match response.tags == '#string' //# reserve words (array 'contains' 'strings') error
-        And match each response.tags == "#string" 
+        And match each response.tags == "#string"                           // #19 *#1* priority in assertions
 
 # @debug @smoke
     Scenario: Get 10 articles from the page                                                                 
@@ -51,13 +51,13 @@ Feature: Tests for the home page
         And match response.articles[*].author.bio contains null
         And match response..bio contains null
 
-        And match each response..following == false
+        And match each response..following == false                // #19 
         # And match each response..following == true                          // will fail
-        And match each response..following == '#boolean'
+        And match each response..following == '#boolean'           // #19 
         # And match each response..favoritesCount == '#string'                // will fail
-        And match each response..favoritesCount == '#number' 
+        And match each response..favoritesCount == '#number'       // #19 
         #                                                 
-        And match each response..bio == '##string'           // double ## --> null or string
+        And match each response..bio == '##string'           // double ## --> value of bio's should be null or string
         # And match each response..bio == '#string'                           // will fail
 
     #   And match each response.articles ==
@@ -90,8 +90,9 @@ Feature: Tests for the home page
     #   * def article = response.articles[0]
 
     #   # * if (favoritesCount == 0) karate.call('classpath:helpers/addLikes.feature', article)
-    #                                                                                           # // javascript option bellow line 93 & 100
-    #   * def result = favoritesCount == 0 ? karate.call('classpath:helpers/addLikes.feature', article).likesCount : favoritesCount
+    #                                                                     # // javascript option bellow line 93 & 100
+    #   * def result = favoritesCount == 0 ? karate.call('classpath:helpers/addLikes.feature', article)
+    #    .likesCount : favoritesCount
 
     #   Given params { limit: 10, offset: 0 }
     #   Given path 'articles'
