@@ -1,5 +1,5 @@
-    # @parallel=false
-    # @debug
+  # @parallel=false
+  # @debug
 Feature: Articles
     Background: Define URL
       Given url apiUrl
@@ -19,7 +19,7 @@ Feature: Articles
       # * def tokenResponse = callonce read('classpath:helpers/CreateToken.feature') // #16.1 delete during create global token 
       # * def token = tokenResponse.authToken       // #15.2 & // #16.1 delete during create global token 
       
-      # @ignore
+# @ignore
     Scenario: Create a new article                                       // at #14 delete article put on @ignore
       # Given header Authorization = 'Token ' + token           // #12 & // #16.1 delete during create global token 
       Given path 'articles'
@@ -29,7 +29,8 @@ Feature: Articles
       Then status 201        And match response.article.description == 'Very new to me'
       And match response.article.title == 'Trying testing API'     // #12
       # And match response.article.title == articleRequestBody.article.title
-    @debug
+
+# @debug
   Scenario: Create and delete new article                           // #14
       # Given header Authorization = 'Token ' + token       // #16.1 delete during create global token 
       Given path 'articles'
@@ -49,7 +50,6 @@ Feature: Articles
       And match response.articles[0].title == 'Delete Article' 
     #   And match response.articles[0].title == articleRequestBody.article.title    
          
-
       # Given header Authorization = 'Token ' + token           // #14 & // #16.1 delete during create global token 
       Given path 'articles',articleSlugId
       When method Delete
