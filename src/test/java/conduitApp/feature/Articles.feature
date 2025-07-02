@@ -1,5 +1,5 @@
 # @parallel=false
-@debug
+# @debug
 Feature: Articles
     Background: Define URL
         * url apiUrl

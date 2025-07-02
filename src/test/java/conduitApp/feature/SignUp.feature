@@ -8,7 +8,7 @@ Feature: Sign Up new user
         * def randomEmail = dataGenerator.getRandomEmail()                  // at #22.3 move from 'New user Sign Up' & more
         * def randomUsername = dataGenerator.getRandomUsername()            // at #22.3 move from 'New user Sign Up' & more
         Given url apiUrl
-# @debug
+@debug
     Scenario: New user Sign Up                
                                         #// next line #17.2 & #17.3 declare a json object & users should not uniq
         # Given def userData = {"email":"karateTest83@test.com", "username": "karateTest83"}  // then commenting at #21 
@@ -26,9 +26,9 @@ Feature: Sign Up new user
         #                                             # // #21.2 define for non-static JS function line below to call above
         # * def randomUsername2 = call jsFunction    
 
-        Given path 'users'
-        # * print randomEmail         // #24
-        # * print randomUsername
+        Given path 'users'          // #24 print 2 lines below
+        * print randomEmail         
+        * print randomUsername
         # And request {"user":{"email": #('Test' + userData.email),"password":"vd1234554321","username": #('User' + userData.username)}} // #17.3 comment to have json below
         # And request {"user":{"email": #(userData.email),"password":"vd1234554321","username": #(userData.username)}} // #17.2
         # And request {"user":{"email": "karateTest73@test.com","password":"vd1234554321","username": "karateTest73"}} // #17.1

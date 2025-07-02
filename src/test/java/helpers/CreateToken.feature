@@ -8,5 +8,5 @@ Scenario: Create Token
     And request {"user":{"email": "#(userEmail)","password": "#(userPassword)"}}  // #16.1 during creating env  
     When method Post
     Then status 200        
-    * def authToken = response.user.token  // #15.1 rename token to authToken
-    * print authToken
+    * def authToken = response.user.token  // #15.1 rename token to authToken   // # --> #24 line below                  
+    * print authToken           
