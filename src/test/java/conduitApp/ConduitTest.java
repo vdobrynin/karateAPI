@@ -14,7 +14,6 @@ import net.masterthought.cucumber.ReportBuilder;
 import org.apache.commons.io.FileUtils;
 
 class ConduitTest {
-
     // @Karate.Test
     // Karate testAll() {
     //     return Karate.run().relativeTo(getClass());

@@ -1,25 +1,28 @@
 # @parallel=false
-@ignore
+# @ignore
 Feature: Sign Up new user
     Background: Preconditions
-        # * def dataGenerator = Java.type('helpers.DataGenerator')
-        # * def timeValidator = read('classpath:helpers/timeValidator.js')
-        # * def randomEmail = dataGenerator.getRandomEmail()
-        # * def randomUsername = dataGenerator.getRandomUsername()    
+        * def dataGenerator = Java.type('helpers.DataGenerator')            // #21
+        * def timeValidator = read('classpath:helpers/timeValidator.js')    // #21.1
         Given url apiUrl
 @debug
-    Scenario: New user Sign Up
-        Given def userData = {"email":"karateTest83@test.com", "username": "karateTest83"}  // #17.2 & #17.3 declare a json object & users should not uniq                            
-        # * def jsFunction =                         // # to create Java class instance need to create JS function
-        # """
-        #     function() {
-        #         var DataGenerator = Java.type('helpers.DataGenerator')
-        #         var generator = new DataGenerator()
-        #         return generator.getRandomUsername2()
-        #     }
-        # """
-        # * def randomUsername2 = call jsFunction     // #17 to call that function
-    
+    Scenario: New user Sign Up                
+                                        #// next line #17.2 & #17.3 declare a json object & users should not uniq
+        # Given def userData = {"email":"karateTest83@test.com", "username": "karateTest83"}  // then commenting at #21 
+        * def randomEmail = dataGenerator.getRandomEmail()                  // #21
+        * def randomUsername = dataGenerator.getRandomUsername()            // #21
+                    # // #21.2 need to create instance JavaScript function to call non-static method from dataGen...
+        * def jsFunction =
+        """
+        function() {
+                var DataGenerator = Java.type('helpers.DataGenerator')
+                var generator = new DataGenerator()
+                return generator.getRandomUsername2()
+            }
+        """
+                                                    # // #21.2 define for non-static JS function line below to call above
+        * def randomUsername2 = call jsFunction    
+
         Given path 'users'
         # * print randomEmail         // #24
         # * print randomUsername
@@ -27,37 +30,69 @@ Feature: Sign Up new user
         # And request {"user":{"email": #(userData.email),"password":"vd1234554321","username": #(userData.username)}} // #17.2
         # And request {"user":{"email": "karateTest73@test.com","password":"vd1234554321","username": "karateTest73"}} // #17.1
                     # // #17.3 use JSON below, better than above (don't put comments at lin below, cause it's belong to JSON)
+                                                    # //"email": #(userData.email),
+                                                    # //"password": "vd1234554321",
+                                                    # //"username": #(userData.username)
+                    # // #21 change to random below (above original)
         And request                                                 
         """
             {
                 "user": {
-                    "email": #(userData.email),
+                    "email": #(randomEmail),
                     "password": "vd1234554321",
-                    "username": #(userData.username)
+                    "username": #(randomUsername)
+                }
+            }
+        """ 
+        When method Post
+        Then status 201 
+                            # // #21.1 assertion
+        And match response ==
+        """
+            {
+                "user": {
+                    "id": '#number',
+                    "email": #(randomEmail),
+                    "username": #(randomUsername),
+                    "bio": null,
+                    "image": '#string',
+                    "token": '#string'
                 }
             }
         """
-#        # "username": #(randomUsername2)
-        When method Post
-        Then status 201
-#         And match response ==
-#         """
-#             {
-#                 "user": {
-#                     "id": '#number',
-#                     "email": #(randomEmail),
-#                     "username": #(randomUsername),
-#                     "bio": '##string',
-#                     "image": '#string',
-#                     "token": '#string'
-#                 }
-#             }
-#         """
-#             # "body": '#string',            //# extra fields if needed
-#             # "tagList": '#array',
-#             #  "createdAt": '#? timeValidator(_)',
-#             #  "updatedAt": '#? timeValidator(_)',
-#         # "username": #(randomUsername2)
+    #                    # // #21.2 for randomUsername2 for jsFunction 'ONLY' with commenting randomUsername request & response
+        # And request                                                 
+        # """
+        #     {
+        #         "user": {
+        #             "email": #(randomEmail),
+        #             "password": "vd1234554321",
+        #             "username": #(randomUsername2)
+        #         }
+        #     }
+        # """
+        # When method Post
+        # Then status 201 
+        #                          # // #21.2 for randomUsername2   
+        # And match response ==
+        # """
+        #     {
+        #         "user": {
+        #             "id": '#number',
+        #             "email": #(randomEmail),
+        #             "username": #(randomUsername2),
+        #             "bio": null,
+        #             "image": '#string',
+        #             "token": '#string'
+        #         }
+        #     }
+        # """
+
+            # "body": '#string',            //# extra fields if needed
+            # "tagList": '#array',
+            #  "createdAt": '#? timeValidator(_)',
+            #  "updatedAt": '#? timeValidator(_)',
+        # "username": #(randomUsername2)
 
 #     Scenario Outline: Validate Sign Up error messages
 #         Given path 'users'
