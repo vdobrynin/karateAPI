@@ -22,11 +22,11 @@
             <version>1.4.1</version>
             <scope>test</scope>
         </dependency>	
-        <dependency>
+        <!-- <dependency>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-jxr-plugin</artifactId>
             <version>3.6.0</version>
-        </dependency>
+        </dependency> -->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
@@ -44,21 +44,21 @@
             <version>5.6.1</version>
             <scope>test</scope>
         </dependency>	
-        <dependency>
+        <!-- <dependency>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-surefire-report-plugin</artifactId>
             <version>3.5.3</version>
-        </dependency>
-        <dependency>
+        </dependency> -->
+        <!-- <dependency>
             <groupId>io.gatling</groupId>
             <artifactId>gatling-maven-plugin</artifactId>
             <version>4.19.0</version>
-        </dependency>
-        <dependency>
+        </dependency> -->
+        <!-- <dependency>
             <groupId>com.intuit.karate</groupId>
             <artifactId>karate-gatling</artifactId>
             <version>1.4.1</version>
-        </dependency>
+        </dependency> -->
         <dependency>
             <groupId>com.github.javafaker</groupId>
             <artifactId>javafaker</artifactId>

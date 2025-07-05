@@ -8,7 +8,7 @@ Feature: Sign Up new user
         * def randomEmail = dataGenerator.getRandomEmail()                  // at #22.3 move from 'New user Sign Up' & more
         * def randomUsername = dataGenerator.getRandomUsername()            // at #22.3 move from 'New user Sign Up' & more
         Given url apiUrl
-@debug
+# @debug
     Scenario: New user Sign Up                
                                         #// next line #17.2 & #17.3 declare a json object & users should not uniq
         # Given def userData = {"email":"karateTest83@test.com", "username": "karateTest83"}  // then commenting at #21 
