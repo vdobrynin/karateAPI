@@ -8,7 +8,7 @@ Feature: Home Work
 # @debug
     Scenario: Favorite articles
         # Step 1: Get articles of the global feed      
-        Given params { limit: 10, offset: 0 }
+        # Given params { limit: 10, offset: 0 }
         Given path 'articles'
         When method Get   
         Then status 200
@@ -60,7 +60,7 @@ Feature: Home Work
         * match incrementedCount == favoritesCount + 1
   
         # Step 6: Get all favorite articles
-        Given params {"favorited": "#(conduitUsername)" , "limit": 10, offset: 0}
+        # Given params {"favorited": "#(conduitUsername)" , "limit": 10, offset: 0}
         Given path 'articles'
         When method Get
         Then status 200
@@ -95,7 +95,7 @@ Feature: Home Work
 # @debug        
     Scenario: Comment articles
         # Step 1: Get articles of the global feed
-        Given params { limit: 10, offset: 0 }
+        # Given params { limit: 10, offset: 0 }
         Given path 'articles'
         When method Get
         Then status 200

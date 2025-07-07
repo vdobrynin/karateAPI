@@ -97,6 +97,7 @@ Feature: Sign Up new user
             #  "updatedAt": '#? timeValidator(_)',
         # "username": #(randomUsername2)
 # @debug
+@parallel=false    
     # Scenario: Validate Sign Up error messages                // #22.1 1st TWO variations        
     Scenario Outline: Validate Sign Up error messages              // #22.2        
         # * def randomEmail = dataGenerator.getRandomEmail()         // #22.2   & then  // at #22.3 move to 'Background'  

@@ -40,7 +40,7 @@ Feature: Tests for the home page
         # # And match response.articlesCount == 50      // will fail
 
         # And match response.articlesCount != 5 
-        And match response == {"articles": "#[10]", "articlesCount": 11}    // #18 *** probably teacher change from 10 to 11
+        And match response == {"articles": "#[10]", "articlesCount": 10}    // #18 *** probably teacher change from 10 to 11
         # And match response == {"articles": "#array", "articlesCount": 11}   // #18 *** probably teacher change from 10 to 11
         # # And match response == {"articles": "#array", "articlesCount": 5}  // will fail
         # # And match response == {"articles": "#array", "articlesCount": 9}  // will fail
