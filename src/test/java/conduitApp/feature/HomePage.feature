@@ -80,61 +80,60 @@ Feature: Tests for the home page
             }
           }
       """
+@debug
+    Scenario: Conditional  Logic              // #29 create 1 article with 1 like to have data
+        # Given params { limit: 10, offset: 0 }
+        Given path 'articles'
+        When method Get
+        Then status 200  
+        * def favoritesCount = response.articles[0].favoritesCount
+        * def article = response.articles[0]
 
-    # Scenario: Conditional  Logic
-    #   Given params { limit: 10, offset: 0 }
-    #   Given path 'articles'
-    #   When method Get
-    #   Then status 200  
-    #   * def favoritesCount = response.articles[0].favoritesCount
-    #   * def article = response.articles[0]
+        # * if (favoritesCount == 0) karate.call('classpath:helpers/addLikes.feature', article) // #29.1
+                                               # // js option bellow line 93 & 100      // #29.2
+        * def result = favoritesCount == 0 ? karate.call('classpath:helpers/addLikes.feature', article).likesCount : favoritesCount
 
-    #   # * if (favoritesCount == 0) karate.call('classpath:helpers/addLikes.feature', article)
-    #                                                                     # // javascript option bellow line 93 & 100
-    #   * def result = favoritesCount == 0 ? karate.call('classpath:helpers/addLikes.feature', article)
-    #    .likesCount : favoritesCount
+        # Given params { limit: 10, offset: 0 }
+        Given path 'articles'
+        When method Get
+        Then status 200 
+        # And match response.articles[0].favoritesCount == 1      // #29.1
+        And match response.articles[0].favoritesCount == result   // #29.2
+        * print "favoritesCount: ",favoritesCount
 
-    #   Given params { limit: 10, offset: 0 }
-    #   Given path 'articles'
-    #   When method Get
-    #   Then status 200 
-    #   # And match response.articles[0].favoritesCount == 1
-    #   And match response.articles[0].favoritesCount == result
+        # Scenario: Retry call   
+        # * configure retry = { count: 10, interval: 5000 }
+        # # Given params { limit: 10, offset: 0 }
+        # Given path 'articles'
 
-    # Scenario: Retry call   
-    #   * configure retry = { count: 10, interval: 5000 }
+        # When retry until response.articles[0].favoritesCount == 0
+        # # When retry until response.articles[0].favoritesCount == 1
 
-    #   # Given params { limit: 10, offset: 0 }
-    #   Given path 'articles'
+        # When method Get
+        # Then status 200  
 
-    #   When retry until response.articles[0].favoritesCount == 0
-    #   # When retry until response.articles[0].favoritesCount == 1
+        # Scenario: Sleep call   
+        #   * def sleep = function(pause){ java.lang.Thread.sleep(pause) }
 
-    #   When method Get
-    #   Then status 200  
+        #   Given params { limit: 10, offset: 0 }
+        #   Given path 'articles'
+        #   When method Get
 
-    # Scenario: Sleep call   
-    #   * def sleep = function(pause){ java.lang.Thread.sleep(pause) }
+        #   * eval sleep(5000)
 
-    #   Given params { limit: 10, offset: 0 }
-    #   Given path 'articles'
-    #   When method Get
-
-    #   * eval sleep(5000)
-
-    #   Then status 200     
+        #   Then status 200     
     
-    # Scenario: Number to string
-    #   # * match 10 == '10'
-    #   * def foo = 10
-    #   * def json = { 'bar': #(foo+'')}
-    #   * match json == { 'bar': '10'}
+        # Scenario: Number to string
+        #   # * match 10 == '10'
+        #   * def foo = 10
+        #   * def json = { 'bar': #(foo+'')}
+        #   * match json == { 'bar': '10'}
     
-    # Scenario: String to number
-    #   * def foo = '10'
-    #   * def json = { 'bar': #(parseInt(foo))}
-    #   * def json1 = { 'bar': #(~~parseInt(foo))}
-    #   * def json2 = { 'bar': #(foo*1)}
-    #   * match json == { 'bar': 10}
-    #   * match json1 == { 'bar': 10}
-    #   * match json2 == { 'bar': 10}
+        # Scenario: String to number
+        #   * def foo = '10'
+        #   * def json = { 'bar': #(parseInt(foo))}
+        #   * def json1 = { 'bar': #(~~parseInt(foo))}
+        #   * def json2 = { 'bar': #(foo*1)}
+        #   * match json == { 'bar': 10}
+        #   * match json1 == { 'bar': 10}
+        #   * match json2 == { 'bar': 10}

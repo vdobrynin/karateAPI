@@ -1,5 +1,5 @@
 
-@debug
+# @debug
 # @parallel=false
 Feature: Hooks
     Background: hooks                                               // #26.1    
