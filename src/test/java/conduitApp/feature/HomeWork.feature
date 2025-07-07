@@ -5,7 +5,7 @@ Feature: Home Work
         * def dataGenerator = Java.type('helpers.DataGenerator')
         * def conduitUsername = 'karateTest64'
         * url apiUrl 
-
+# @debug
     Scenario: Favorite articles
         # Step 1: Get articles of the global feed      
         Given params { limit: 10, offset: 0 }
