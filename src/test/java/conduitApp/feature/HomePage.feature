@@ -129,7 +129,7 @@ Feature: Tests for the home page
         * def json = { 'bar': #(foo + '')}
         * match json == { 'bar': '10'}
     
-@debug
+# @debug
     Scenario: String to number
         * def foo = '10'
         # * def json = { 'bar': #(foo)}               // will fail
