@@ -122,18 +122,20 @@ Feature: Tests for the home page
         Then status 200     
 
 # @debug
-    # Scenario: Number to string
-    #     # * match 10 == '10'
-    #     * def foo = 10
-    #     * def json = { 'bar': #(foo+'')}
-    #     * match json == { 'bar': '10'}
+    Scenario: Number to string
+        # * match 10 == '10'            // will fail
+        * def foo = 10
+        # * def json = { 'bar': #(foo)}           // will fail
+        * def json = { 'bar': #(foo + '')}
+        * match json == { 'bar': '10'}
     
-# @debug
-    # Scenario: String to number
-    #     * def foo = '10'
-    #     * def json = { 'bar': #(parseInt(foo))}
-    #     * def json1 = { 'bar': #(~~parseInt(foo))}
-    #     * def json2 = { 'bar': #(foo*1)}
-    #     * match json == { 'bar': 10}
-    #     * match json1 == { 'bar': 10}
-    #     * match json2 == { 'bar': 10}
+@debug
+    Scenario: String to number
+        * def foo = '10'
+        # * def json = { 'bar': #(foo)}               // will fail
+        * def json = { 'bar': #(foo * 1)}   
+        * def json1 = { 'bar': #(parseInt(foo))}        // js add 1.0
+        * def json2 = { 'bar': #(~~parseInt(foo))}      // for integer       
+        * match json == { 'bar': 10}
+        * match json1 == { 'bar': 10}
+        * match json2 == { 'bar': 10}
