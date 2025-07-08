@@ -80,7 +80,7 @@ Feature: Tests for the home page
             }
           }
       """
-@debug
+# @debug
     Scenario: Conditional  Logic              // #29 create 1 article with 1 like to have data
         # Given params { limit: 10, offset: 0 }
         Given path 'articles'
@@ -101,39 +101,39 @@ Feature: Tests for the home page
         And match response.articles[0].favoritesCount == result   // #29.2
         * print "favoritesCount: ",favoritesCount
 
-        # Scenario: Retry call   
-        # * configure retry = { count: 10, interval: 5000 }
-        # # Given params { limit: 10, offset: 0 }
-        # Given path 'articles'
+# @debug
+    Scenario: Retry call   
+        * configure retry = { count: 10, interval: 5000 }
+        # Given params { limit: 10, offset: 0 }
+        Given path 'articles'
 
-        # When retry until response.articles[0].favoritesCount == 0
-        # # When retry until response.articles[0].favoritesCount == 1
+        # When retry until response.articles[0].favoritesCount == 0  // retry should be place before action
+        When retry until response.articles[0].favoritesCount == 1
+        When method Get
+        Then status 200  
 
-        # When method Get
-        # Then status 200  
+# @debug
+    Scenario: Sleep call   
+        * def sleep = function(pause){ java.lang.Thread.sleep(pause) }
+        # Given params { limit: 10, offset: 0 }
+        Given path 'articles'
+        When method Get
+        * eval sleep(5000)    // hardcode sleep
+        Then status 200     
 
-        # Scenario: Sleep call   
-        #   * def sleep = function(pause){ java.lang.Thread.sleep(pause) }
-
-        #   Given params { limit: 10, offset: 0 }
-        #   Given path 'articles'
-        #   When method Get
-
-        #   * eval sleep(5000)
-
-        #   Then status 200     
+# @debug
+    # Scenario: Number to string
+    #     # * match 10 == '10'
+    #     * def foo = 10
+    #     * def json = { 'bar': #(foo+'')}
+    #     * match json == { 'bar': '10'}
     
-        # Scenario: Number to string
-        #   # * match 10 == '10'
-        #   * def foo = 10
-        #   * def json = { 'bar': #(foo+'')}
-        #   * match json == { 'bar': '10'}
-    
-        # Scenario: String to number
-        #   * def foo = '10'
-        #   * def json = { 'bar': #(parseInt(foo))}
-        #   * def json1 = { 'bar': #(~~parseInt(foo))}
-        #   * def json2 = { 'bar': #(foo*1)}
-        #   * match json == { 'bar': 10}
-        #   * match json1 == { 'bar': 10}
-        #   * match json2 == { 'bar': 10}
+# @debug
+    # Scenario: String to number
+    #     * def foo = '10'
+    #     * def json = { 'bar': #(parseInt(foo))}
+    #     * def json1 = { 'bar': #(~~parseInt(foo))}
+    #     * def json2 = { 'bar': #(foo*1)}
+    #     * match json == { 'bar': 10}
+    #     * match json1 == { 'bar': 10}
+    #     * match json2 == { 'bar': 10}
