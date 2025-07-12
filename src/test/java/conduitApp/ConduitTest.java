@@ -18,7 +18,7 @@ class ConduitTest {
     void testParallel() {
         Results results = Runner.path("classpath:conduitApp")
                 .outputCucumberJson(true)
-                .parallel(5);
+                .parallel(1);           // #33 change from 5 to 1
         // assertEquals(0, results.getFailCount(), results.getErrorMessages()); // commented at #28
         generateReport(results.getReportDir());                                 // add at #28 cucumber report
         assertTrue(results.getFailCount() == 0, results.getErrorMessages());
