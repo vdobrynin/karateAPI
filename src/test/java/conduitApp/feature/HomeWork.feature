@@ -1,4 +1,5 @@
 # @debug
+@parallel=false
 Feature: Home Work
     Background: Preconditions
         * def timeValidator = read('classpath:helpers/timeValidator.js')  
@@ -6,6 +7,7 @@ Feature: Home Work
         * def conduitUsername = 'karateTest64'
         * url apiUrl 
 # @debug
+@parallel=false
     Scenario: Favorite articles
         # Step 1: Get articles of the global feed      
         # Given params { limit: 10, offset: 0 }
@@ -56,7 +58,7 @@ Feature: Home Work
 
         # Step 5: Verify that favorites article incremented by 1
         * def incrementedCount = response.article.favoritesCount
-        # * print 'Before: ', favoritesCount, 'After: ', incrementedCount
+        * print 'Before: ', favoritesCount, 'After: ', incrementedCount
         * match incrementedCount == favoritesCount + 1
   
         # Step 6: Get all favorite articles
@@ -86,13 +88,15 @@ Feature: Home Work
         Given path 'articles',articleSlugId,'favorite'
         When method Delete
         Then status 200
+        # * print 'favoritesCount: ', favoritesCount
     
         ## Get slugs of only favorited articles         
         # * def favoriteSlugs = response.articles.filter(x => x.favoritesCount > 0).map(x => x.slug).slug
         # * print "favoriteSlugs: " + favoriteSlugs
         ## Now check if the saved slug ID is among them
         # * match favoriteSlugs contains articleSlugId
-# @debug        
+# @debug   
+@parallel=false     
     Scenario: Comment articles
         # Step 1: Get articles of the global feed
         # Given params { limit: 10, offset: 0 }
@@ -162,7 +166,7 @@ Feature: Home Work
         Given path 'articles',articleSlugId,'comments'
         When method Get
         Then status 200
-        # * print "initialCommentsCount",initialCommentsCount
+        # * print "initialCommentsCount ",initialCommentsCount
 
         # Step 9: Verify number of comments increased by 1 (similar like we did with favorite counts)   
         * def currentCommentsCount = response.comments.length

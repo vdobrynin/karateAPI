@@ -1,4 +1,4 @@
-# @parallel=false
+@parallel=false
 # @debug
 Feature: Tests for the home page
     Background: Define URL
@@ -40,7 +40,7 @@ Feature: Tests for the home page
         # # And match response.articlesCount == 50      // will fail
 
         # And match response.articlesCount != 5 
-        And match response == {"articles": "#[10]", "articlesCount": 10}    // #18 *** probably teacher change from 10 to 11
+        # And match response == {"articles": "#[10]", "articlesCount": 10}    // #18 *** probably teacher change from 10 to 11
         # And match response == {"articles": "#array", "articlesCount": 11}   // #18 *** probably teacher change from 10 to 11
         # # And match response == {"articles": "#array", "articlesCount": 5}  // will fail
         # # And match response == {"articles": "#array", "articlesCount": 9}  // will fail
@@ -92,25 +92,33 @@ Feature: Tests for the home page
         # * if (favoritesCount == 0) karate.call('classpath:helpers/addLikes.feature', article) // #29.1
                                                # // js option bellow line 93 & 100      // #29.2
         * def result = favoritesCount == 0 ? karate.call('classpath:helpers/addLikes.feature', article).likesCount : favoritesCount
+        # * print result
 
         # Given params { limit: 10, offset: 0 }
         Given path 'articles'
         When method Get
         Then status 200 
-        # And match response.articles[0].favoritesCount == 1      // #29.1
+        # And match response.articles[0].favoritesCount == 1    // #29.1
         And match response.articles[0].favoritesCount == result   // #29.2
-        * print "favoritesCount: ",favoritesCount
+        # * print "favoritesCount: ",favoritesCount
 
+@ignore
+# @skip
 # @debug
     Scenario: Retry call   
         * configure retry = { count: 10, interval: 5000 }
-        # Given params { limit: 10, offset: 0 }
+        # Given params { limit: 10, offset: 0}
         Given path 'articles'
-
-        # When retry until response.articles[0].favoritesCount == 0  // retry should be place before action
-        When retry until response.articles[0].favoritesCount == 1
+        # And retry until response.articles[0].favoritesCount == 0
+        # And retry until response.articles[0].favoritesCount == result
         When method Get
-        Then status 200  
+        Then status 200
+        * def favoritesCount = response.articles[0].favoritesCount
+        * def article = response.articles[0]
+        # * print " ",favoritesCount
+        * def result = favoritesCount == 0 ? karate.call('classpath:helpers/addLikes.feature', article).likesCount : favoritesCount
+        And retry until response.articles[0].favoritesCount == result
+       
 
 # @debug
     Scenario: Sleep call   

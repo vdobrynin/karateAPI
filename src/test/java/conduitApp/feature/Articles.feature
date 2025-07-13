@@ -1,4 +1,4 @@
-# @parallel=false
+@parallel=false
 # @debug
 Feature: Articles
     Background: Define URL
@@ -21,6 +21,7 @@ Feature: Articles
         # * def token = tokenResponse.authToken       // #15.2 & // #16.1 delete during create global token 
       
 @ignore
+# @skip
 # @debug 
     Scenario: Create a new article                                       // at #14 delete article put on @ignore
         # Given header Authorization = 'Token ' + token           // #12 & // #16.1 delete during create global token 

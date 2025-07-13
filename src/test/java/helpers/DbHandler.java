@@ -15,7 +15,7 @@ public class DbHandler {
             // connect.createStatement().execute("INSERT INTO [Pubs].[dbo].[jobs] (job_desc,
             // min_lvl, max_lvl) VALUES ('QA3', 50, 100)"); // #33 hardcoded
             connect.createStatement().execute(
-                    "INSERT INTO [Pubs].[dbo].[jobs] (job_desc, min_lvl, max_lvl) VALUES ('" + jobName + "', 95, 105)");
+                    "INSERT INTO [Pubs].[dbo].[jobs] (job_desc, min_lvl, max_lvl) VALUES ('" + jobName + "', 75, 110)");
         } catch (SQLException e) {
             e.printStackTrace();
         }
