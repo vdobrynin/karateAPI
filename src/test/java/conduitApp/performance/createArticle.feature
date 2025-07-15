@@ -3,13 +3,12 @@ Feature: Article
         * url apiUrl
         * def articleRequestBody = read('classpath:conduitApp/json/newArticleRequest.json')
         * def dataGenerator = Java.type('helpers.DataGenerator')
-        * def articleRequestBody.article.title = dataGenerator.getRandomArticleValues().title
-        * def articleRequestBody.article.description = getRandomArticleValues().Description
-        # * set articleRequestBody.article.description = __gatling.Description
+        * set articleRequestBody.article.title = __gatling.Title       // #40 change at
+        * set articleRequestBody.article.description = __gatling.Description  // #40 change at
         * def articleRequestBody.article.body = dataGenerator.getRandomArticleValues().body
 
-        # * def sleep = function(ms){ java.lang.Thread.sleep(ms) }
-        # * def pause = karate.get('__gatling.pause', sleep)
+        * def sleep = function(ms){ java.lang.Thread.sleep(ms) }
+        * def pause = karate.get('__gatling.pause', sleep)
 
     Scenario: Create & Delete Article
         # * configure headers = {"Authorization": #('Token ' + __gatling.token)}
@@ -20,8 +19,8 @@ Feature: Article
         Then status 200
         * def articleId = response.article.slug
 
-        # * pause(5000)
+        # * pause(5000)                     // #40 commenting temp
 
-        Given path 'articles',articleId
-        When method Delete
-        Then status 200
+        # Given path 'articles',articleId   // #40 commenting temp
+        # When method Delete
+        # Then status 200
