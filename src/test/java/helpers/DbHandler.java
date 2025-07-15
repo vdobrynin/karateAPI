@@ -27,9 +27,6 @@ public class DbHandler {
         try (Connection connect = DriverManager.getConnection(connectionUrl)) {
             ResultSet rs = connect.createStatement()
                     .executeQuery("SELECT * FROM [Pubs].[dbo].[jobs] WHERE job_desc = '" + jobName + "'");
-            // ResultSet rs = connect.createStatement()
-            // .executeQuery("SELECT * FROM [Pubs].[dbo].[jobs] where job_desc = '" +
-            // jobName + "'");
             rs.next();
             json.put("minLvl", rs.getString("min_lvl"));
             json.put("maxLvl", rs.getString("max_lvl"));

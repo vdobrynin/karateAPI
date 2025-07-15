@@ -1,4 +1,4 @@
-# @performance
+@performance
 Feature: Articles
 
     Background: Define URL
@@ -10,10 +10,10 @@ Feature: Articles
         # * set articleRequestBody.article.description = __gatling.Description
         * set articleRequestBody.article.body = dataGenerator.getRandomArticleValues().body
 
-        # * def sleep = function(ms){ java.lang.Thread.sleep(ms) }
-        # * def pause = karate.get('__gatling.pause', sleep)
+        * def sleep = function(ms){ java.lang.Thread.sleep(ms) }
+        * def pause = karate.get('__gatling.pause', sleep)
 
-    Scenario: Create and delete article
+    Scenario: Create and Delete article
         # * configure headers = {"Authorization": #('Token ' + __gatling.token)}
         Given path 'articles'
         And request articleRequestBody
@@ -22,7 +22,7 @@ Feature: Articles
         Then status 200
         * def articleId = response.article.slug
 
-        # * pause(5000)
+        * pause(5000)
 
         Given path 'articles',articleId
         When method Delete
