@@ -1,6 +1,5 @@
 package conduitApp;
 
-import com.intuit.karate.junit5.*;
 import com.intuit.karate.Results;
 import com.intuit.karate.Runner;
 import static org.junit.jupiter.api.Assertions.*;

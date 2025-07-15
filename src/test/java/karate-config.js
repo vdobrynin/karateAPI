@@ -10,7 +10,8 @@ function fn() {
   if (env == 'dev') {                            // #16.1
     config.userEmail = 'karateTest64@test.com'
     config.userPassword = 'vd1234567'
-  } else if (env == 'qa') {
+  }
+  if (env == 'qa') {
     config.userEmail = 'karateTest65@test.com'
     config.userPassword = 'vd123456789'
   }
