@@ -43,14 +43,14 @@ Feature: Articles
         When method Post
         Then status 201
         * def articleSlugId = response.article.slug
-        * print 'Slug title is: ' + articleSlugId
+        # * print 'Slug title is: ' + articleSlugId
       
         # Given header Authorization = 'Token ' + token               // #14 & // #16.1 delete during create global token 
         # Given params { limit: 10, offset: 0 }
         Given path 'articles'
         When method Get
         Then status 200
-        * print 'Article Title is: ' + response.articles[0].title
+        # * print 'Article Title is: ' + response.articles[0].title
         # And match response.articles[0].title == 'Delete Article' 
         # And match response.articles[0].title == articleRequestBody.article.title    // change at #23 from above
          

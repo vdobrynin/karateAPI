@@ -9,4 +9,4 @@ Scenario: Create Token
     When method Post
     Then status 200        
     * def authToken = response.user.token  // #15.1 rename token to authToken   // # --> #24 line below                  
-    * print authToken           
+    # * print authToken           
