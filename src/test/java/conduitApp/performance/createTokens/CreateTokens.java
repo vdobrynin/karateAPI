@@ -28,7 +28,8 @@ public class CreateTokens {
             account.put("userEmail", email);
             account.put("userPassword", "vd1234567");
 
-            Map<String, Object> result = Runner.runFeature("classpath:helpers/CreateToken.feature", account, true);
+            Map<String, Object> result = Runner
+                .runFeature("classpath:helpers/CreateToken.feature", account, true);
             tokens.add(result.get("authToken").toString());
         }
     }     

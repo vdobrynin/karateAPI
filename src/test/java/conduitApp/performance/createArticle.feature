@@ -17,11 +17,11 @@ Feature: Articles
         And header karate-name = 'Title requested: ' + __gatling.Title
         # And header karate-name = 'Create Article: '
         When method Post
-        Then status 200
+        Then status 201
         * def articleId = response.article.slug
                             # //           // #40 commenting temp
         * pause(5000)                     
                             # //           // #40 commenting temp
         Given path 'articles',articleId   
         When method Delete
-        Then status 200
+        Then status 201
