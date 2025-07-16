@@ -24,4 +24,4 @@ Feature: Articles
                             # //           // #40 commenting temp
         Given path 'articles',articleId   
         When method Delete
-        Then status 201
+        Then status 204
