@@ -1,4 +1,4 @@
-Feature: Article
+Feature: Articles
     Background: Define URL
         * url apiUrl
         * def articleRequestBody = read('classpath:conduitApp/json/newArticleRequest.json')
@@ -14,13 +14,14 @@ Feature: Article
         * configure headers = {"Authorization": #('Token ' + __gatling.token)}
         Given path 'articles'
         And request articleRequestBody
-        # And header karate-name = 'Create Article'
+        And header karate-name = 'Title requested: ' + __gatling.Title
+        # And header karate-name = 'Create Article: '
         When method Post
-        Then status 201
+        Then status 200
         * def articleId = response.article.slug
-
-        # * pause(5000)                     // #40 commenting temp
-
-        # Given path 'articles',articleId   // #40 commenting temp
-        # When method Delete
-        # Then status 204
+                            # //           // #40 commenting temp
+        * pause(5000)                     
+                            # //           // #40 commenting temp
+        Given path 'articles',articleId   
+        When method Delete
+        Then status 200

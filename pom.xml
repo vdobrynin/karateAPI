@@ -112,7 +112,7 @@
                             <args>
                                 <arg>-Jbackend:GenBCode</arg>
                                 <arg>-Jdelambdafy:method</arg>
-                                <arg>-target:jvm-1.8</arg>
+                                <arg>-target:jvm-17</arg>
                                 <arg>-deprecation</arg>
                                 <arg>-feature</arg>
                                 <arg>-unchecked</arg>
